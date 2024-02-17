@@ -66,7 +66,10 @@ cmake-build-*/
 
 # IntelliJ
 out/
+<<<<<<< HEAD
 *.iml
+=======
+>>>>>>> 6658351 (Update .gitiignore)
 
 # mpeltonen/sbt-idea plugin
 
