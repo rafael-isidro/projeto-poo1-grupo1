@@ -77,7 +77,6 @@ public class Filme {
     public void removerAtor(Ator ator) {
         listaAtores.remove(ator);
 
-
     }
 
 
