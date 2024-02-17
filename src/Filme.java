@@ -80,7 +80,6 @@ public class Filme {
 
     }
 
-
     public boolean nomeContem(String nomePesquisa) {
         return nome.toLowerCase().contains(nomePesquisa.toLowerCase());
     }
@@ -96,7 +95,6 @@ public class Filme {
                 ", atores=" + atores +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
