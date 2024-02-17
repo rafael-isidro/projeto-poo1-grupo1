@@ -7,26 +7,80 @@ public class Filme {
     private Double orcamento;
     private String descricao;
     private Diretor diretor;
-    private List<ator> atores;
+    private List<Ator> listaAtores;
 
-    public Filme(String nome, String dataLancamento, Double orcamento, String descricao, Diretor diretor, List<ator> atores) {
+    public Filme(String nome, String dataLancamento, Double orcamento, String descricao, Diretor diretor, List<Ator> atores) {
         this.nome = nome;
         this.dataLancamento = dataLancamento;
         this.orcamento = orcamento;
         this.descricao = descricao;
         this.diretor = diretor;
-        this.atores = new ArrayList<>();
+        this.listaAtores = atores;
     }
+    public Filme(){
 
-    public void adicionarAtor(Ator ator) {
-        atores.add(ator);
     }
-
     public String getNome() {
         return nome;
     }
 
-    // Método para pesquisar filme pelo nome (ignorando maiúsculas/minúsculas)
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(String dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
+
+    public double getOrcamento() {
+        return orcamento;
+    }
+
+    public void setOrcamento(double orcamento) {
+        this.orcamento = orcamento;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Diretor getDiretor() {
+        return diretor;
+    }
+
+    public void setDiretor(Diretor diretor) {
+        this.diretor = diretor;
+    }
+
+    public List<Ator> getListaAtores() {
+        return listaAtores;
+    }
+
+    public void setListaAtores(List<Ator> listaAtores) {
+        this.listaAtores = listaAtores;
+    }
+
+
+    public void adicionarAtor(Ator ator) {
+        listaAtores.add(ator);
+    }
+
+
+    public void removerAtor(Ator ator) {
+        listaAtores.remove(ator);
+
+
+    }
+
+
     public boolean nomeContem(String nomePesquisa) {
         return nome.toLowerCase().contains(nomePesquisa.toLowerCase());
     }
