@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Filme {
     private String nome;
@@ -96,4 +97,16 @@ public class Filme {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Filme filme = (Filme) o;
+        return Objects.equals(nome, filme.nome) && Objects.equals(dataLancamento, filme.dataLancamento) && Objects.equals(orcamento, filme.orcamento) && Objects.equals(descricao, filme.descricao) && Objects.equals(diretor, filme.diretor) && Objects.equals(listaAtores, filme.listaAtores);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, dataLancamento, orcamento, descricao, diretor, listaAtores);
+    }
 }
