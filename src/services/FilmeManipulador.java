@@ -1,7 +1,9 @@
 package services;
 
+import entities.Diretor;
 import entities.Filme;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,19 +25,29 @@ public class FilmeManipulador {
     }
 
     public void adicionarFilme(List<Filme> filmes) {
-        System.out.println("Por favor, insira o nome do filme:");
+        while (true) {
+        System.out.println("Tecle enter sem digitar nada para sair.\n");
+        System.out.println("Nome do filme: ");
         String nome = sc.nextLine();
-        System.out.println("Por favor, insira a data de lançamento do filme:");
+        if (nome.isBlank()) {
+                System.out.println();
+                break;
+        }
+
+        System.out.println("Lançamento do filme: ");
         String dataLancamento = sc.nextLine();
-        System.out.println("Por favor, insira o orçamento do filme:");
+        System.out.println("Orçamento do filme: ");
         double orcamento = sc.nextDouble();
         sc.nextLine(); // Limpar o buffer do Scanner
-        System.out.println("Por favor, insira a descrição do filme:");
+        System.out.println("Descrição do filme: ");
         String descricao = sc.nextLine();
         Filme novoFilme = new Filme(nome, dataLancamento, orcamento, descricao, new Diretor(), new ArrayList<>());
         filmes.add(novoFilme);
         System.out.println("Filme adicionado com sucesso!");
+
     }
+
+}
 
     public void editarFilme(List<Filme> filmes) {
         System.out.println("Por favor, insira o nome do filme que deseja editar:");
