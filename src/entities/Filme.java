@@ -1,6 +1,9 @@
 package entities;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 public class Filme {
     private String nome;
     private String dataLancamento;
@@ -9,7 +12,7 @@ public class Filme {
     private Diretor diretor;
     private List<Ator> listaAtores;
 
-    public Filme(String nome, String dataLancamento, Double orcamento, String descricao, Diretor diretor, List<Ator> atores) {
+    public Filme(String nome, String dataLancamento, Double orcamento, String descricao, Diretor diretor, ArrayList<Ator> atores) {
         this.nome = nome;
         this.dataLancamento = dataLancamento;
         this.orcamento = orcamento;
@@ -17,9 +20,11 @@ public class Filme {
         this.diretor = diretor;
         this.listaAtores = atores;
     }
-    public Filme(){
 
+    public Filme() {
+        this.listaAtores = new ArrayList<>();
     }
+
     public String getNome() {
         return nome;
     }
@@ -64,7 +69,7 @@ public class Filme {
         return listaAtores;
     }
 
-    public void setListaAtores(List<Ator> listaAtores) {
+    public void setListaAtores(ArrayList<Ator> listaAtores) {
         this.listaAtores = listaAtores;
     }
 
@@ -76,11 +81,23 @@ public class Filme {
 
     public void removerAtor(Ator ator) {
         listaAtores.remove(ator);
-
     }
 
     public boolean nomeContem(String nomePesquisa) {
         return nome.toLowerCase().contains(nomePesquisa.toLowerCase());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Filme filme = (Filme) o;
+        return Objects.equals(nome, filme.nome) && Objects.equals(dataLancamento, filme.dataLancamento) && Objects.equals(orcamento, filme.orcamento) && Objects.equals(descricao, filme.descricao) && Objects.equals(diretor, filme.diretor) && Objects.equals(listaAtores, filme.listaAtores);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, dataLancamento, orcamento, descricao, diretor, listaAtores);
     }
 
     @Override
@@ -94,16 +111,5 @@ public class Filme {
                 ", atores=" + listaAtores +
                 '}';
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Filme filme = (Filme) o;
-        return Objects.equals(nome, filme.nome) && Objects.equals(dataLancamento, filme.dataLancamento) && Objects.equals(orcamento, filme.orcamento) && Objects.equals(descricao, filme.descricao) && Objects.equals(diretor, filme.diretor) && Objects.equals(listaAtores, filme.listaAtores);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(nome, dataLancamento, orcamento, descricao, diretor, listaAtores);
-    }
 }
