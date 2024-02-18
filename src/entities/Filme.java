@@ -1,7 +1,6 @@
-import java.util.ArrayList;
+package entities;
 import java.util.List;
 import java.util.Objects;
-
 public class Filme {
     private String nome;
     private String dataLancamento;
@@ -92,7 +91,7 @@ public class Filme {
                 ", orcamento=" + orcamento +
                 ", descricao='" + descricao + '\'' +
                 ", diretor=" + diretor +
-                ", atores=" + atores +
+                ", atores=" + listaAtores +
                 '}';
     }
     @Override
