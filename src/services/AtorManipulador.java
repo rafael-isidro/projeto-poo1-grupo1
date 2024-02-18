@@ -156,4 +156,5 @@ public class AtorManipulador {
 
         return opcao;
     }
+
 }
