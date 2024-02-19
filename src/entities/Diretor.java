@@ -1,46 +1,48 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Diretor extends Pessoa {
-    private String area;
+    private List<String> listaAreas;
 
-    public Diretor(String nome, String area) {
+    public Diretor(String nome, ArrayList<String> listaAreas) {
         super(nome);
-        this.area = area;
+        this.listaAreas = listaAreas;
     }
 
     public Diretor() {
-
+        this.listaAreas = new ArrayList<>();
     }
 
-    public String getArea() {
-        return area;
+    public List<String> getListaAreas() {
+        return listaAreas;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setListaAreas(List<String> listaAreas) {
+        this.listaAreas = listaAreas;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Diretor diretor = (Diretor) o;
-        return Objects.equals(area, diretor.area) && super.equals(o);
+        return Objects.equals(listaAreas, diretor.listaAreas);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, area);
+        return Objects.hash(nome, listaAreas);
     }
 
     @Override
     public String toString() {
         return "Diretor{" +
-                "area='" + area + '\'' +
+                "listaAreas=" + listaAreas +
                 ", nome='" + nome + '\'' +
                 '}';
     }
-
 }
