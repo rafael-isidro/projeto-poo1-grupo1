@@ -32,8 +32,8 @@ public class Main {
         atorManipulador.deletarAtor(americanPie);
 
         diretorManipulador.adicionarDiretores(americanPie);
-//        diretorManipulador.editarDiretores(americanPie);
-//        diretorManipulador.deletarDiretor(americanPie);
+        diretorManipulador.editarDiretores(americanPie);
+        diretorManipulador.deletarDiretor(americanPie);
         sc.close();
     }
 
