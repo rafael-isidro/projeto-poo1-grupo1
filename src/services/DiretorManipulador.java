@@ -72,7 +72,7 @@ public class DiretorManipulador {
         while (true) {
             System.out.println("Digite o número do diretor a editar:\n");
 
-            int numero = listarELerOpcaoDiretor(diretores);
+            int numero = listarELerOpcao(diretores);
             if (numero == 0) {
                 break;
             }
@@ -163,7 +163,7 @@ public class DiretorManipulador {
                 return;
             }
 
-            int numero = listarELerOpcaoAreaAtuacao(listaAreasDoDiretor);
+            int numero = listarELerOpcao(listaAreasDoDiretor);
             System.out.println("Digite o número da área a deletar:\n");
 
             if (numero == 0) {
@@ -203,7 +203,7 @@ public class DiretorManipulador {
 
             System.out.println("Digite o número do diretor a deletar:\n");
 
-            int numero = listarELerOpcaoDiretor(diretores);
+            int numero = listarELerOpcao(diretores);
             if (numero == 0) {
                 break;
             }
@@ -216,10 +216,10 @@ public class DiretorManipulador {
         }
     }
 
-    private int listarELerOpcaoDiretor(List<Diretor> diretores) {
+    private int listarELerOpcao(List<?> lista) {
         System.out.println("número | nome");
-        for (int i = 0; i < diretores.size(); i++) {
-            System.out.printf("%6d - %s;%n", i + 1, diretores.get(i).getNome());
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.printf("%6d - %s;%n", i + 1, lista.get(i) instanceof Diretor ? ((Diretor) lista.get(i)).getNome() : lista.get(i));
         }
         System.out.printf("%6d - sair.%n%n", 0);
 
@@ -228,18 +228,4 @@ public class DiretorManipulador {
 
         return opcao;
     }
-
-    private int listarELerOpcaoAreaAtuacao(List<String> areasAtuacao) {
-        System.out.println("número | nome");
-        for (int i = 0; i < areasAtuacao.size(); i++) {
-            System.out.printf("%6d - %s;%n", i + 1, areasAtuacao.get(i));
-        }
-        System.out.printf("%6d - sair.%n%n", 0);
-
-        int opcao = sc.nextInt();
-        sc.nextLine();
-
-        return opcao;
-    }
-
 }
