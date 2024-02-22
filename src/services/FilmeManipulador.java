@@ -1,5 +1,6 @@
 package services;
 
+import entities.Ator;
 import entities.Diretor;
 import entities.Filme;
 
@@ -38,7 +39,7 @@ public class FilmeManipulador {
             String dataLancamento = sc.nextLine();
             System.out.println("Orçamento do filme: ");
             double orcamento = sc.nextDouble();
-            sc.nextLine(); // Limpar o buffer do Scanner
+            sc.nextLine();
             System.out.println("Descrição do filme: ");
             String descricao = sc.nextLine();
             Filme novoFilme = new Filme(nome, dataLancamento, orcamento, descricao, new Diretor(), new ArrayList<>());
@@ -49,10 +50,13 @@ public class FilmeManipulador {
     }
 
     public void editarFilme(List<Filme> filmes) {
-        boolean continuar = true;
+        if (filmes.isEmpty()) {
+                System.out.println("Não tem filmes cadastrados.\n");
+                return;
+        }
 
-        while (continuar) {
-            System.out.println("Por favor, insira o nome do filme que deseja editar:");
+        while (true) {
+            System.out.println("Digite o nome do filme que deseja editar:\n");
             String nome = sc.nextLine();
 
             for (Filme filme : filmes) {
@@ -67,21 +71,16 @@ public class FilmeManipulador {
 
                     switch (escolha) {
                         case 1:
-                            System.out.println("Insira o novo nome:");
-                            filme.setNome(sc.nextLine());
+                            editarNome(filme);
                             break;
                         case 2:
-                            System.out.println("Insira a nova data de lançamento:");
-                            filme.setDataLancamento(sc.nextLine());
+                            editarDataLancamento(filme);
                             break;
                         case 3:
-                            System.out.println("Insira o novo orçamento:");
-                            filme.setOrcamento(sc.nextDouble());
-                            sc.nextLine(); // Limpar o buffer do Scanner
+                            editarOrcamento(filme);
                             break;
                         case 4:
-                            System.out.println("Insira a nova descrição:");
-                            filme.setDescricao(sc.nextLine());
+                            editarDescricao(filme);
                             break;
                         default:
                             System.out.println("Opção inválida.");
@@ -93,34 +92,74 @@ public class FilmeManipulador {
             System.out.println("Deseja editar outro filme? (S/N)");
             String resposta = sc.nextLine();
             if (!resposta.equalsIgnoreCase("S")) {
-                continuar = false;
+                break;
             }
         }
+    }
+
+    private void editarNome(Filme filme) {
+        System.out.println("Insira o novo nome:");
+        String novoNome = sc.nextLine();
+        filme.setNome(novoNome);
+    }
+
+    private void editarDataLancamento(Filme filme) {
+        System.out.println("Insira a nova data de lançamento:");
+        String novaDataLancamento = sc.nextLine();
+        filme.setDataLancamento(novaDataLancamento);
+    }
+
+    private void editarOrcamento(Filme filme) {
+        System.out.println("Insira o novo orçamento:");
+        double novoOrcamento = sc.nextDouble();
+        sc.nextLine(); // Limpar o buffer do Scanner
+        filme.setOrcamento(novoOrcamento);
+    }
+
+    private void editarDescricao(Filme filme) {
+        System.out.println("Insira a nova descrição:");
+        String novaDescricao = sc.nextLine();
+        filme.setDescricao(novaDescricao);
     }
 
     public void deletarFilme(List<Filme> filmes) {
-        boolean continuar = true;
 
-        while (continuar) {
-            System.out.println("Por favor, insira o nome do filme que deseja deletar:");
-            String nome = sc.nextLine();
-
-            for (Filme filme : filmes) {
-                if (filme.getNome().equals(nome)) {
-                    filmes.remove(filme);
-                    System.out.println("Filme deletado com sucesso!");
-                    break;
-                }
+        while (true) {
+            if (filmes.isEmpty()) {
+                System.out.println("Não tem filmes cadastrados.\n");
+                return;
             }
-            System.out.println("Filme não encontrado.");
 
-            System.out.println("Deseja deletar outro filme? (S/N)");
-            String resposta = sc.nextLine();
-            if (!resposta.equalsIgnoreCase("S")) {
-                continuar = false;
+            System.out.println("Digite o número do ator a deletar:\n");
+
+            int numero = listarELerOpcao(filmes);
+            if (numero == 0) {
+                break;
             }
+            try {
+                Filme filme = filmes.remove(numero - 1);
+                System.out.printf("Filme %s removido com sucesso.%n%n", filme.getNome());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Número inválido, tente novamente.\n");
+            }
+
+
+
         }
     }
+
+    private int listarELerOpcao(List<Filme> filmes) {
+        System.out.println("número | nome");
+        for (int i = 0; i < filmes.size(); i++) {
+            System.out.printf("%6d - %s;%n", i + 1, filmes.get(i).getNome());
+    }
+        System.out.printf("%6d - sair.%n%n", 0);
+
+        int opcao = sc.nextInt();
+        sc.nextLine();
+
+        return opcao;
+        }
 }
 
 
