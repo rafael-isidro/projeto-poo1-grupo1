@@ -1,28 +1,33 @@
 package services;
 
-import entities.Ator;
-import entities.Diretor;
 import entities.Filme;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class FilmeManipulador {
 
+
     private static FilmeManipulador manipulador;
+
 
     public static FilmeManipulador getManipulador(Scanner sc) {
         if (manipulador == null) {
             manipulador = new FilmeManipulador(sc);
+
         }
         return manipulador;
     }
 
     private final Scanner sc;
+    private final DiretorManipulador diretorManipulador;
+    private final AtorManipulador atorManipulador;
+
 
     private FilmeManipulador(Scanner sc) {
         this.sc = sc;
+        this.diretorManipulador = DiretorManipulador.getManipulador(sc);
+        this.atorManipulador = AtorManipulador.getManipulador(sc);
     }
 
     public void adicionarFilme(List<Filme> filmes) {
@@ -42,8 +47,14 @@ public class FilmeManipulador {
             sc.nextLine();
             System.out.println("Descrição do filme: ");
             String descricao = sc.nextLine();
-            Filme novoFilme = new Filme(nome, dataLancamento, orcamento, descricao, new Diretor(), new ArrayList<>());
-            filmes.add(novoFilme);
+            Filme filme = new Filme();
+            filme.setNome(nome);
+            filme.setDataLancamento(dataLancamento);
+            filme.setDescricao(descricao);
+            filme.setOrcamento(orcamento);
+            diretorManipulador.adicionarDiretores(filme);
+            atorManipulador.adicionarAtores(filme);
+            filmes.add(filme);
             System.out.println("Filme adicionado com sucesso!");
 
         }
@@ -51,8 +62,8 @@ public class FilmeManipulador {
 
     public void editarFilme(List<Filme> filmes) {
         if (filmes.isEmpty()) {
-                System.out.println("Não tem filmes cadastrados.\n");
-                return;
+            System.out.println("Não tem filmes cadastrados.\n");
+            return;
         }
 
         while (true) {
@@ -130,7 +141,7 @@ public class FilmeManipulador {
                 return;
             }
 
-            System.out.println("Digite o número do ator a deletar:\n");
+            System.out.println("Digite o número do filme a deletar:\n");
 
             int numero = listarELerOpcao(filmes);
             if (numero == 0) {
@@ -144,7 +155,6 @@ public class FilmeManipulador {
             }
 
 
-
         }
     }
 
@@ -152,14 +162,14 @@ public class FilmeManipulador {
         System.out.println("número | nome");
         for (int i = 0; i < filmes.size(); i++) {
             System.out.printf("%6d - %s;%n", i + 1, filmes.get(i).getNome());
-    }
+        }
         System.out.printf("%6d - sair.%n%n", 0);
 
         int opcao = sc.nextInt();
         sc.nextLine();
 
         return opcao;
-        }
+    }
 }
 
 
