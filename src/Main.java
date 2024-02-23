@@ -62,7 +62,7 @@ public class Main {
                 Desenvolvedores:
                     Bruno Samuel da Silva;
                     Fabiola Santana dos Santos;
-                    Rafael Santos Isidoro; e
+                    Rafael Santos Isidro; e
                     Wagner Costa Thomazini.
                 Turma: Santander Coders 2023 | 2º Semestre - Java (1)|#1111
                 Data: 23 de fevereiro de 2024.""");
