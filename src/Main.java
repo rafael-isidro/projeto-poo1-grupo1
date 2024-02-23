@@ -30,6 +30,7 @@ public class Main {
                 switch (opcao) {
                     case '1':
                         listarFilmes(filmes, false);
+                        break;
                     case '2':
                         filmeManipulador.adicionarFilme(filmes);
                         break;

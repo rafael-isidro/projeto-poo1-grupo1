@@ -25,8 +25,9 @@ public class DiretorManipulador {
     }
 
     public void adicionarDiretores(Filme filme) {
+        System.out.println(">>>> Inserção de Diretores <<<<");
+        System.out.println("Tecle enter sem digitar nada para sair.\n");
         while (true) {
-            System.out.println("Tecle enter sem digitar nada para sair.\n");
             System.out.print("Nome do diretor: ");
             String nome = sc.nextLine();
             if (nome.isBlank()) {
@@ -47,7 +48,6 @@ public class DiretorManipulador {
         while (true) {
             System.out.print("Informe uma área de atuação a adicionar ou tecle enter sem digitar nada para sair: ");
             String area = sc.nextLine();
-            System.out.println();
 
             if (area.isBlank() && !listaAreas.isEmpty()) {
                 System.out.println();

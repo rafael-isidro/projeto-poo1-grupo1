@@ -24,8 +24,9 @@ public class AtorManipulador {
     }
 
     public void adicionarAtores(Filme filme) {
+        System.out.println(">>>> Inserção de Atores <<<<");
+        System.out.println("Tecle enter sem digitar nada para sair.\n");
         while (true) {
-            System.out.println("Tecle enter sem digitar nada para sair.\n");
             System.out.print("Nome do ator: ");
             String nome = sc.nextLine();
             if (nome.isBlank()) {
@@ -50,7 +51,7 @@ public class AtorManipulador {
         }
 
         while (true) {
-            System.out.println("Digite o número do ator a editar:\n");
+            System.out.print("Digite o número do ator a editar: ");
 
             int numero = listarELerOpcao(atores);
             if (numero == 0) {
@@ -120,7 +121,7 @@ public class AtorManipulador {
         ator.setCpf(cpf);
     }
 
-    public void deletarAtor(Filme filme) {
+    public void deletarAtores(Filme filme) {
         List<Ator> atores = filme.getListaAtores();
 
         while (true) {
