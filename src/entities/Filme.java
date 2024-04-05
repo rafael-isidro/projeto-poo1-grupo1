@@ -11,15 +11,18 @@ public class Filme {
     private String descricao;
     private List<Diretor> listaDiretores;
     private List<Ator> listaAtores;
+    private String genero;
 
-    public Filme(String nome, String dataLancamento, Double orcamento, String descricao, ArrayList<Diretor> diretores, ArrayList<Ator> atores) {
+    public Filme(String nome, String dataLancamento, Double orcamento, String descricao, List<Diretor> listaDiretores, List<Ator> listaAtores, String genero) {
         this.nome = nome;
         this.dataLancamento = dataLancamento;
         this.orcamento = orcamento;
         this.descricao = descricao;
-        this.listaDiretores = diretores;
-        this.listaAtores = atores;
+        this.listaDiretores = listaDiretores;
+        this.listaAtores = listaAtores;
+        this.genero = genero;
     }
+
 
     public Filme() {
         this.listaAtores = new ArrayList<>();
@@ -74,6 +77,10 @@ public class Filme {
         this.listaAtores = listaAtores;
     }
 
+    public String getGenero() {return genero;}
+
+    public void setGenero(String genero) {this.genero = genero;}
+
 
     public void adicionarAtor(Ator ator) {
         listaAtores.add(ator);
@@ -107,7 +114,7 @@ public class Filme {
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, dataLancamento, orcamento, descricao, listaDiretores, listaAtores);
+        return Objects.hash(nome, dataLancamento, orcamento, descricao, genero,listaDiretores, listaAtores);
     }
 
     @Override
@@ -117,6 +124,7 @@ public class Filme {
                 ", dataLancamento='" + dataLancamento + '\'' +
                 ", orcamento=" + orcamento +
                 ", descricao='" + descricao + '\'' +
+                ", genero=" + genero + '\''+
                 ", diretores=" + listaDiretores +
                 ", atores=" + listaAtores +
                 '}';

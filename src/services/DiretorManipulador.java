@@ -24,7 +24,7 @@ public class DiretorManipulador {
         this.sc = sc;
     }
 
-    public void adicionarDiretores(Filme filme) {
+    public void adicionarDiretores(Filme filme, List<Diretor> diretores) {
         System.out.println(">>>> Inserção de Diretores <<<<");
         System.out.println("Tecle enter sem digitar nada para sair.\n");
         while (true) {
@@ -38,7 +38,9 @@ public class DiretorManipulador {
             adicionarAreaAtuacao(listaAreas);
 
             System.out.println("Áreas adicionadas com sucesso.");
-            filme.adicionarDiretor(new Diretor(nome, listaAreas));
+            Diretor diretor = new Diretor(nome, listaAreas);
+            filme.adicionarDiretor(diretor);
+            diretores.add(diretor);
         }
 
     }
@@ -62,8 +64,7 @@ public class DiretorManipulador {
         return listaAreas;
     }
 
-    public void editarDiretores(Filme filme) {
-        List<Diretor> diretores = filme.getListaDiretores();
+    public void editarDiretores(Filme filme, List<Diretor> diretores) {
         if (diretores.isEmpty()) {
             System.out.println("O filme não tem diretores cadastrados.\n");
             return;
@@ -78,7 +79,8 @@ public class DiretorManipulador {
             }
 
             try {
-                this.editarDiretor(diretores.get(numero - 1));
+                Diretor diretor = diretores.get(numero - 1);
+                editarDiretor(diretor);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Número inválido, tente novamente.\n");
             }

@@ -1,7 +1,10 @@
 package services;
 
+import entities.Ator;
+import entities.Diretor;
 import entities.Filme;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,14 +19,14 @@ public class FilmeManipulador {
     }
 
     private final Scanner sc;
-    private final DiretorManipulador diretorManipulador;
-    private final AtorManipulador atorManipulador;
+    private final List<Diretor> diretores;
+    private final List<Ator> atores;
 
 
     private FilmeManipulador(Scanner sc) {
         this.sc = sc;
-        this.diretorManipulador = DiretorManipulador.getManipulador(sc);
-        this.atorManipulador = AtorManipulador.getManipulador(sc);
+        this.diretores = new ArrayList<>();
+        this.atores = new ArrayList<>();
     }
 
     public void adicionarFilme(List<Filme> filmes) {
@@ -49,9 +52,12 @@ public class FilmeManipulador {
             filme.setDescricao(descricao);
             filme.setOrcamento(orcamento);
             System.out.println();
-            diretorManipulador.adicionarDiretores(filme);
-            System.out.println();
-            atorManipulador.adicionarAtores(filme);
+
+            DiretorManipulador diretorManipulador = DiretorManipulador.getManipulador(sc);
+            diretorManipulador.adicionarDiretores(filme, diretores);
+            AtorManipulador atorManipulador = AtorManipulador.getManipulador(sc);
+            atorManipulador.adicionarAtores(filme, atores);
+
             filmes.add(filme);
             System.out.println("Filme adicionado com sucesso!");
 
@@ -88,8 +94,7 @@ public class FilmeManipulador {
                       2 - Editar data de lançamento;
                       3 - Editar orçamento;
                       4 - Editar descrição;
-                      5 - Editar diretores;
-                      6 - Editar atores;
+                      5 - Editar genero;                      
                       0 - Sair.
                 """;
         while (true) {
@@ -98,8 +103,7 @@ public class FilmeManipulador {
             System.out.println("  Data de lançamento: " + filme.getDataLancamento());
             System.out.println("  Orçamento: " + filme.getOrcamento());
             System.out.println("  Descrição: " + filme.getDescricao());
-            System.out.println("  Diretores: " + filme.getListaDiretores());
-            System.out.println("  Atores: " + filme.getListaAtores());
+            System.out.println("  Genero: " + filme.getGenero());
             System.out.println(apresentacao);
 
             System.out.print("> ");
@@ -120,11 +124,7 @@ public class FilmeManipulador {
                     editarDescricao(filme);
                     break;
                 case '5':
-                    editarDiretores(filme);
-                    break;
-                case '6':
-                    editarAtores(filme);
-                    atorManipulador.editarAtores(filme);
+                    editarGenero(filme);
                     break;
                 case '0':
                     return;
@@ -135,59 +135,7 @@ public class FilmeManipulador {
         }
     }
 
-    private void editarDiretores(Filme filme) {
-        String apresentacao = """
-                >>>> Menu - edição de filme (Diretor) <<<<
-                      1 - Adicionar diretores;
-                      2 - Editar diretores;
-                      3 - Deletar diretores;
-                      0 - Sair.
-                """;
-        while (true) {
-            System.out.println(apresentacao);
-            System.out.print("> ");
-            char opcao = sc.nextLine().charAt(0);
-            if (opcao == '0')
-                break;
 
-            if (opcao == '1'){
-                diretorManipulador.adicionarDiretores(filme);
-            } else if (opcao == '2'){
-                diretorManipulador.editarDiretores(filme);
-            } else if (opcao == '3'){
-                diretorManipulador.deletarDiretor(filme);
-            } else {
-                System.out.println("Opção inválida.\n");
-            }
-        }
-    }
-
-    private void editarAtores(Filme filme) {
-        String apresentacao = """
-                >>>> Menu - editão de filme (Ator) <<<<
-                      1 - Adicionar atores;
-                      2 - Editar atores;
-                      3 - Deletar atores;
-                      0 - Sair.
-                """;
-        while (true) {
-            System.out.println(apresentacao);
-            System.out.print("> ");
-            char opcao = sc.nextLine().charAt(0);
-            if (opcao == '0')
-                break;
-
-            if (opcao == '1'){
-                atorManipulador.adicionarAtores(filme);
-            } else if (opcao == '2'){
-                atorManipulador.editarAtores(filme);
-            } else if (opcao == '3'){
-                atorManipulador.deletarAtores(filme);
-            } else {
-                System.out.println("Opção inválida.\n");
-            }
-        }
-    }
 
     private void editarNome(Filme filme) {
         System.out.print("Insira o novo nome: ");
@@ -212,6 +160,12 @@ public class FilmeManipulador {
         System.out.print("Insira a nova descrição: ");
         String novaDescricao = sc.nextLine();
         filme.setDescricao(novaDescricao);
+    }
+
+    private void editarGenero(Filme filme) {
+        System.out.println("Insira o novo gênero: ");
+        String novoGenero = sc.nextLine();;
+        filme.setGenero(novoGenero);
     }
 
     public void deletarFilme(List<Filme> filmes) {

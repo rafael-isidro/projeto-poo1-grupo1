@@ -23,7 +23,7 @@ public class AtorManipulador {
         this.sc = sc;
     }
 
-    public void adicionarAtores(Filme filme) {
+    public void adicionarAtores(Filme filme, List<Ator> atores) {
         System.out.println(">>>> Inserção de Atores <<<<");
         System.out.println("Tecle enter sem digitar nada para sair.\n");
         while (true) {
@@ -43,8 +43,7 @@ public class AtorManipulador {
 
     }
 
-    public void editarAtores(Filme filme) {
-        List<Ator> atores = filme.getListaAtores();
+    public void editarAtores(Filme filme, List<Ator> atores) {
         if (atores.isEmpty()) {
             System.out.println("O filme não tem atores cadastrados.\n");
             return;
@@ -59,7 +58,7 @@ public class AtorManipulador {
             }
 
             try {
-                this.editarAtor(atores.get(numero - 1));
+                Ator ator = atores.get(numero - 1);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Número inválido, tente novamente.\n");
             }
@@ -121,8 +120,7 @@ public class AtorManipulador {
         ator.setCpf(cpf);
     }
 
-    public void deletarAtores(Filme filme) {
-        List<Ator> atores = filme.getListaAtores();
+    public void deletarAtores(Filme filme, List<Ator> atores) {
 
         while (true) {
             if (atores.isEmpty()) {
