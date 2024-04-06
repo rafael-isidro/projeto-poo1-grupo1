@@ -56,6 +56,11 @@ public class FilmeManipulador {
             String descricao = sc.nextLine();
             System.out.print("Duração do filme (em minutos): ");
             long duracaoEmMinutos = sc.nextLong();
+            sc.nextLine();
+            System.out.print("Genero: ");
+            String genero = sc.nextLine();
+
+
             Duration duracao = Duration.ofMinutes(duracaoEmMinutos);
             Filme filme = new Filme();
             filme.setNome(nome);
@@ -63,6 +68,7 @@ public class FilmeManipulador {
             filme.setDescricao(descricao);
             filme.setOrcamento(orcamento);
             filme.setDuracao(duracao);
+            filme.adicionarGenero(genero);
             System.out.println();
 
 
