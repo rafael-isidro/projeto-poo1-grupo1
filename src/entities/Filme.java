@@ -1,33 +1,42 @@
 package entities;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Filme {
     private String nome;
-    private String dataLancamento;
+    private LocalDate dataLancamento;
     private Double orcamento;
     private String descricao;
     private List<Diretor> listaDiretores;
     private List<Ator> listaAtores;
-    private String genero;
+    private List<String> listaGenero;
+    private Duration duracao;
 
-    public Filme(String nome, String dataLancamento, Double orcamento, String descricao, List<Diretor> listaDiretores, List<Ator> listaAtores, String genero) {
+    public Filme(String nome, LocalDate dataLancamento, Double orcamento, String descricao, List<Diretor> listaDiretores, List<Ator> listaAtores, List<String> listaGenero, Duration duracao) {
         this.nome = nome;
         this.dataLancamento = dataLancamento;
         this.orcamento = orcamento;
         this.descricao = descricao;
         this.listaDiretores = listaDiretores;
         this.listaAtores = listaAtores;
-        this.genero = genero;
+        this.listaGenero = listaGenero;
+        this.duracao = duracao;
     }
+
 
 
     public Filme() {
         this.listaAtores = new ArrayList<>();
         this.listaDiretores = new ArrayList<>();
+        this.listaGenero = new ArrayList<>();
     }
+
+
 
     public String getNome() {
         return nome;
@@ -37,11 +46,11 @@ public class Filme {
         this.nome = nome;
     }
 
-    public String getDataLancamento() {
+    public LocalDate getDataLancamento() {
         return dataLancamento;
     }
 
-    public void setDataLancamento(String dataLancamento) {
+    public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
 
@@ -77,13 +86,23 @@ public class Filme {
         this.listaAtores = listaAtores;
     }
 
-    public String getGenero() {return genero;}
+    public List<String> getListaGenero() {return listaGenero;}
 
-    public void setGenero(String genero) {this.genero = genero;}
+    public void setListaGenero(List<String> listaGenero) {this.listaGenero = listaGenero;}
 
+    public Duration getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(Duration duracao) {
+        this.duracao = duracao;
+    }
 
     public void adicionarAtor(Ator ator) {
         listaAtores.add(ator);
+    }
+    public void adicionarGenero(String genero) {
+        listaGenero.add(genero);
     }
 
 
@@ -109,12 +128,12 @@ public class Filme {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Filme filme = (Filme) o;
-        return Objects.equals(nome, filme.nome) && Objects.equals(dataLancamento, filme.dataLancamento) && Objects.equals(orcamento, filme.orcamento) && Objects.equals(descricao, filme.descricao) && Objects.equals(listaDiretores, filme.listaDiretores) && Objects.equals(listaAtores, filme.listaAtores);
+        return Objects.equals(nome, filme.nome) && Objects.equals(dataLancamento, filme.dataLancamento) && Objects.equals(orcamento, filme.orcamento) && Objects.equals(descricao, filme.descricao) && Objects.equals(listaDiretores, filme.listaDiretores) && Objects.equals(listaAtores, filme.listaAtores) && Objects.equals(listaGenero, filme.listaGenero);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, dataLancamento, orcamento, descricao, genero,listaDiretores, listaAtores);
+        return Objects.hash(nome, dataLancamento, orcamento, descricao, listaGenero,listaDiretores, listaAtores);
     }
 
     @Override
@@ -124,7 +143,7 @@ public class Filme {
                 ", dataLancamento='" + dataLancamento + '\'' +
                 ", orcamento=" + orcamento +
                 ", descricao='" + descricao + '\'' +
-                ", genero=" + genero + '\''+
+                ", genero=" + listaGenero + '\''+
                 ", diretores=" + listaDiretores +
                 ", atores=" + listaAtores +
                 '}';
