@@ -4,6 +4,9 @@ import entities.Ator;
 import entities.Diretor;
 import entities.Filme;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +22,8 @@ public class FilmeManipulador {
     }
 
     private final Scanner sc;
+    private final DiretorManipulador diretorManipulador;
+    private final AtorManipulador atorManipulador;
     private final List<Diretor> diretores;
     private final List<Ator> atores;
 
@@ -27,7 +32,10 @@ public class FilmeManipulador {
         this.sc = sc;
         this.diretores = new ArrayList<>();
         this.atores = new ArrayList<>();
+        this.diretorManipulador = DiretorManipulador.getManipulador(sc);
+        this.atorManipulador = AtorManipulador.getManipulador(sc);
     }
+
 
     public void adicionarFilme(List<Filme> filmes) {
         while (true) {
@@ -39,23 +47,26 @@ public class FilmeManipulador {
                 break;
             }
 
-            System.out.print("Lançamento do filme: ");
-            String dataLancamento = sc.nextLine();
+            System.out.print("Lançamento do filme (formato: YYYY-MM-DD): ");
+            String dataLancamentoStr = sc.nextLine();
             System.out.print("Orçamento do filme: ");
             double orcamento = sc.nextDouble();
             sc.nextLine();
             System.out.print("Descrição do filme: ");
             String descricao = sc.nextLine();
+            System.out.print("Duração do filme (em minutos): ");
+            long duracaoEmMinutos = sc.nextLong();
+            Duration duracao = Duration.ofMinutes(duracaoEmMinutos);
             Filme filme = new Filme();
             filme.setNome(nome);
-            filme.setDataLancamento(dataLancamento);
+            filme.setDataLancamento(LocalDate.parse(dataLancamentoStr));
             filme.setDescricao(descricao);
             filme.setOrcamento(orcamento);
+            filme.setDuracao(duracao);
             System.out.println();
 
-            DiretorManipulador diretorManipulador = DiretorManipulador.getManipulador(sc);
+
             diretorManipulador.adicionarDiretores(filme, diretores);
-            AtorManipulador atorManipulador = AtorManipulador.getManipulador(sc);
             atorManipulador.adicionarAtores(filme, atores);
 
             filmes.add(filme);
@@ -94,7 +105,8 @@ public class FilmeManipulador {
                       2 - Editar data de lançamento;
                       3 - Editar orçamento;
                       4 - Editar descrição;
-                      5 - Editar genero;                      
+                      5 - Editar genero;
+                      6 - Editar duração;              
                       0 - Sair.
                 """;
         while (true) {
@@ -103,7 +115,8 @@ public class FilmeManipulador {
             System.out.println("  Data de lançamento: " + filme.getDataLancamento());
             System.out.println("  Orçamento: " + filme.getOrcamento());
             System.out.println("  Descrição: " + filme.getDescricao());
-            System.out.println("  Genero: " + filme.getGenero());
+            System.out.println("  Genero: " + filme.getListaGenero());
+            System.out.println("  Duração: " + filme.getDuracao());
             System.out.println(apresentacao);
 
             System.out.print("> ");
@@ -126,6 +139,9 @@ public class FilmeManipulador {
                 case '5':
                     editarGenero(filme);
                     break;
+                case '6':
+                    editarDuracao(filme);
+                    break;
                 case '0':
                     return;
                 default:
@@ -135,6 +151,12 @@ public class FilmeManipulador {
         }
     }
 
+    private void editarDuracao(Filme filme) {
+        System.out.print("Insira a nova duração do filme (em minutos): ");
+        long novaDuracaoEmMinutos = sc.nextLong();
+        Duration novaDuracao = Duration.ofMinutes(novaDuracaoEmMinutos);
+        filme.setDuracao(novaDuracao);
+    }
 
 
     private void editarNome(Filme filme) {
@@ -144,8 +166,9 @@ public class FilmeManipulador {
     }
 
     private void editarDataLancamento(Filme filme) {
-        System.out.print("Insira a nova data de lançamento: ");
-        String novaDataLancamento = sc.nextLine();
+        System.out.print("Insira a nova data de lançamento (no formato YYYY-MM-DD): ");
+        String novaDataLancamentoInput = sc.nextLine();
+        LocalDate novaDataLancamento = LocalDate.parse(novaDataLancamentoInput, DateTimeFormatter.ISO_LOCAL_DATE);
         filme.setDataLancamento(novaDataLancamento);
     }
 
@@ -165,7 +188,7 @@ public class FilmeManipulador {
     private void editarGenero(Filme filme) {
         System.out.println("Insira o novo gênero: ");
         String novoGenero = sc.nextLine();;
-        filme.setGenero(novoGenero);
+        filme.adicionarGenero(novoGenero);
     }
 
     public void deletarFilme(List<Filme> filmes) {
