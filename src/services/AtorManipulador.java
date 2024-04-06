@@ -83,4 +83,7 @@ public class AtorManipulador {
             System.out.println("Número de ator inválido.\n");
         }
     }
+
+    public void adicionarAtores(List<Ator> listaAtores) {
+    }
 }

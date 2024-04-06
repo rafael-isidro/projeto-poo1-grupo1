@@ -96,4 +96,7 @@ public class DiretorManipulador {
         }
         return listaAreas;
     }
+
+    public void adicionarDiretores(List<Diretor> listaDiretores) {
+    }
 }
