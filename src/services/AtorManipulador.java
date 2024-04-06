@@ -10,7 +10,6 @@ public class AtorManipulador {
 
     private static AtorManipulador manipulador;
 
-    // Lista geral de atores
     private List<Ator> atores;
 
     public static AtorManipulador getManipulador(Scanner sc) {
