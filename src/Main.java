@@ -100,7 +100,6 @@ public class Main {
                     Wagner Costa Thomazini.
                 Turma: Santander Coders 2023 | 2º Semestre - Java (1)|#1111
                 Data: 08 de abril de 2024.""");
-        // TODO: Arrumar nome completo de todos
 
         sc.close();
     }
