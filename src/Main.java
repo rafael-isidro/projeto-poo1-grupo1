@@ -1,7 +1,6 @@
 import entities.Filme;
 import services.FilmeManipulador;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,18 +21,14 @@ public class Main {
                           3 - Editar filmes;
                           4 - Deletar filmes;
                           5 - Listar filmes com detalhes;
-                          6 - Pesquisar por título;
-                          7 - Pesquisar por gênero;
-                          8 - Pesquisar por ano de lançamento;
-                          9 - Pesquisar por atores;
-                          10 - Pesquisar por diretor;
-                          11 - Filtrar por duração;
-                          12 - Salvar filmes em arquivo CSV;
-                          13 - Ler filmes de arquivo CSV;
+                          6 - Pesquisar;
+                          7 - Filtrar por duração;
+                          8 - Salvar filmes em arquivo CSV;
+                          9 - Ler filmes de arquivo CSV;
                           0 - Sair.""";
             System.out.print(apresentacao + "\n> ");
             try {
-                char opcao = sc.nextLine().charAt(0);
+                char opcao = Character.toUpperCase(sc.nextLine().charAt(0));
                 System.out.println();
 
                 switch (opcao) {
@@ -53,27 +48,17 @@ public class Main {
                         listarFilmes(filmes, true);
                         break;
                     case '6':
-                        // Implementar pesquisa por título
+                        apresentarOpcoesPesquisa();
+                        char opcaoPesquisa = Character.toUpperCase(sc.nextLine().charAt(0));
+                        executarPesquisa(opcaoPesquisa);
                         break;
                     case '7':
-                        // Implementar pesquisa por gênero
-                        break;
-                    case '8':
-                        // Implementar pesquisa por ano de lançamento
-                        break;
-                    case '9':
-                        // Implementar pesquisa por atores
-                        break;
-                    case '10':
-                        // Implementar pesquisa por diretor
-                        break;
-                    case '11':
                         // Implementar filtrar por duração
                         break;
-                    case '12':
+                    case '8':
                         // Implementar salvar em arquivo CSV
                         break;
-                    case '13':
+                    case '9':
                         // Implementar ler de arquivo CSV
                         break;
                     case '0':
@@ -82,6 +67,7 @@ public class Main {
                         System.out.println("Opção inválida.\n");
                 }
             } catch (StringIndexOutOfBoundsException ignored) {
+                System.out.println("Digite uma opção válida.\n");
             }
 
         }
@@ -121,5 +107,37 @@ public class Main {
             }
         }
         System.out.println();
+    }
+
+    private static void apresentarOpcoesPesquisa() {
+        System.out.println(">>>> Opções de Pesquisa <<<<");
+        System.out.println("A) Por título;");
+        System.out.println("B) Por gênero;");
+        System.out.println("C) Por ano de lançamento;");
+        System.out.println("D) Por atores;");
+        System.out.println("E) Por diretor;");
+        System.out.print("> ");
+    }
+
+    private static void executarPesquisa(char opcaoPesquisa) {
+        switch (opcaoPesquisa) {
+            case 'A':
+                // Implementar pesquisa por título
+                break;
+            case 'B':
+                // Implementar pesquisa por gênero
+                break;
+            case 'C':
+                // Implementar pesquisa por ano de lançamento
+                break;
+            case 'D':
+                // Implementar pesquisa por atores
+                break;
+            case 'E':
+                // Implementar pesquisa por diretor
+                break;
+            default:
+                System.out.println("Opção de pesquisa inválida.\n");
+        }
     }
 }
