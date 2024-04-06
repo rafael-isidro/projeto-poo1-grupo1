@@ -1,14 +1,17 @@
 package services;
 
 import entities.Ator;
-import entities.Filme;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AtorManipulador {
 
     private static AtorManipulador manipulador;
+
+    // Lista geral de atores
+    private List<Ator> atores;
 
     public static AtorManipulador getManipulador(Scanner sc) {
         if (manipulador == null) {
@@ -21,139 +24,63 @@ public class AtorManipulador {
 
     private AtorManipulador(Scanner sc) {
         this.sc = sc;
+        this.atores = new ArrayList<>();
     }
 
-    public void adicionarAtores(Filme filme, List<Ator> atores) {
-        System.out.println(">>>> Inserção de Atores <<<<");
-        System.out.println("Tecle enter sem digitar nada para sair.\n");
-        while (true) {
-            System.out.print("Nome do ator: ");
-            String nome = sc.nextLine();
-            if (nome.isBlank()) {
-                System.out.println();
-                break;
-            }
-
-            System.out.print("CPF do ator: ");
-            String cpf = sc.nextLine();
-            System.out.println();
-
-            filme.adicionarAtor(new Ator(nome, cpf));
-        }
-
-    }
-
-    public void editarAtores(Filme filme, List<Ator> atores) {
-        if (atores.isEmpty()) {
-            System.out.println("O filme não tem atores cadastrados.\n");
-            return;
-        }
-
-        while (true) {
-            System.out.print("Digite o número do ator a editar: ");
-
-            int numero = listarELerOpcao(atores);
-            if (numero == 0) {
-                break;
-            }
-
-            try {
-                Ator ator = atores.get(numero - 1);
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Número inválido, tente novamente.\n");
-            }
-        }
-    }
-
-    private void editarAtor(Ator ator) {
-        String apresentacao = """
-                >>>> Menu - Edição de Ator <<<<
-                      1 - Editar Nome;
-                      2 - Editar CPF;
-                      0 - Sair.
-                """;
-        while (true) {
-            System.out.println("Ator");
-            System.out.println("  Nome: " + ator.getNome());
-            System.out.println("  CPF: " + ator.getCpf() + '\n');
-            System.out.println(apresentacao);
-
-            System.out.print("> ");
-            char opcao = sc.nextLine().charAt(0);
-            System.out.println();
-
-            switch (opcao) {
-                case '1':
-                    editarNome(ator);
-                    break;
-                case '2':
-                    editarCpf(ator);
-                    break;
-                case '0':
-                    return;
-            }
-
-        }
-    }
-
-    private void editarNome(Ator ator) {
-        System.out.println("Tecle enter sem digitar nada para sair.");
-        System.out.print("Novo nome: ");
+    public void adicionarAtor() {
+        System.out.println(">>>> Inserção de Ator <<<<");
+        System.out.print("Nome do ator: ");
         String nome = sc.nextLine();
-        System.out.println();
 
-        if (nome.isBlank()) {
-            return;
-        }
-        ator.setNome(nome);
-    }
-
-    private void editarCpf(Ator ator) {
-        System.out.println("Tecle enter sem digitar nada para sair.");
-        System.out.print("Novo CPF: ");
+        System.out.print("CPF do ator: ");
         String cpf = sc.nextLine();
+
+        Ator novoAtor = new Ator(nome, cpf);
+        atores.add(novoAtor);
+        System.out.println("Ator adicionado com sucesso!\n");
+    }
+
+    public void listarAtores() {
+        System.out.println(">>>> Lista de Atores <<<<");
+        for (Ator ator : atores) {
+            System.out.println(ator.getNome() + " - " + ator.getCpf());
+        }
         System.out.println();
-
-        if (cpf.isBlank()) {
-            return;
-        }
-        ator.setCpf(cpf);
     }
 
-    public void deletarAtores(Filme filme, List<Ator> atores) {
-
-        while (true) {
-            if (atores.isEmpty()) {
-                System.out.println("O filme não tem atores cadastrados.\n");
-                return;
+    public void editarAtor() {
+        System.out.println(">>>> Edição de Ator <<<<");
+        listarAtores();
+        System.out.print("Digite o número do ator a editar: ");
+        int numero = Integer.parseInt(sc.nextLine());
+        if (numero >= 1 && numero <= atores.size()) {
+            Ator ator = atores.get(numero - 1);
+            System.out.print("Novo nome (ou deixe em branco para manter o mesmo): ");
+            String novoNome = sc.nextLine();
+            if (!novoNome.isBlank()) {
+                ator.setNome(novoNome);
             }
-
-            System.out.println("Digite o número do ator a deletar:\n");
-
-            int numero = listarELerOpcao(atores);
-            if (numero == 0) {
-                break;
+            System.out.print("Novo CPF (ou deixe em branco para manter o mesmo): ");
+            String novoCpf = sc.nextLine();
+            if (!novoCpf.isBlank()) {
+                ator.setCpf(novoCpf);
             }
-            try {
-                Ator ator = atores.remove(numero - 1);
-                System.out.printf("Ator %s removido com sucesso.%n%n", ator.getNome());
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Número inválido, tente novamente.\n");
-            }
+            System.out.println("Ator editado com sucesso!\n");
+        } else {
+            System.out.println("Número de ator inválido.\n");
         }
     }
 
-    private int listarELerOpcao(List<Ator> atores) {
-        System.out.println("número | nome");
-        for (int i = 0; i < atores.size(); i++) {
-            System.out.printf("%6d - %s;%n", i + 1, atores.get(i).getNome());
+    public void removerAtor() {
+        System.out.println(">>>> Remoção de Ator <<<<");
+        listarAtores();
+        System.out.print("Digite o número do ator a remover: ");
+        int numero = Integer.parseInt(sc.nextLine());
+        if (numero >= 1 && numero <= atores.size()) {
+            Ator atorRemovido = atores.remove(numero - 1);
+            System.out.println("Ator " + atorRemovido.getNome() + " removido com sucesso!\n");
+        } else {
+            System.out.println("Número de ator inválido.\n");
         }
-        System.out.printf("%6d - sair.%n%n", 0);
-
-        int opcao = sc.nextInt();
-        sc.nextLine();
-
-        return opcao;
     }
-
 }
