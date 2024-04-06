@@ -1,6 +1,7 @@
 import entities.Filme;
 import services.FilmeManipulador;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +22,14 @@ public class Main {
                           3 - Editar filmes;
                           4 - Deletar filmes;
                           5 - Listar filmes com detalhes;
+                          6 - Pesquisar por título;
+                          7 - Pesquisar por gênero;
+                          8 - Pesquisar por ano de lançamento;
+                          9 - Pesquisar por atores;
+                          10 - Pesquisar por diretor;
+                          11 - Filtrar por duração;
+                          12 - Salvar filmes em arquivo CSV;
+                          13 - Ler filmes de arquivo CSV;
                           0 - Sair.""";
             System.out.print(apresentacao + "\n> ");
             try {
@@ -43,6 +52,30 @@ public class Main {
                     case '5':
                         listarFilmes(filmes, true);
                         break;
+                    case '6':
+                        // Implementar pesquisa por título
+                        break;
+                    case '7':
+                        // Implementar pesquisa por gênero
+                        break;
+                    case '8':
+                        // Implementar pesquisa por ano de lançamento
+                        break;
+                    case '9':
+                        // Implementar pesquisa por atores
+                        break;
+                    case '10':
+                        // Implementar pesquisa por diretor
+                        break;
+                    case '11':
+                        // Implementar filtrar por duração
+                        break;
+                    case '12':
+                        // Implementar salvar em arquivo CSV
+                        break;
+                    case '13':
+                        // Implementar ler de arquivo CSV
+                        break;
                     case '0':
                         break loopApp;
                     default:
@@ -62,11 +95,11 @@ public class Main {
                 Desenvolvedores:
                     Bruno Samuel da Silva;
                     Fabiola Santana dos Santos;
+                    Rafael Maia
                     Rafael Santos Isidro; e
                     Wagner Costa Thomazini.
                 Turma: Santander Coders 2023 | 2º Semestre - Java (1)|#1111
-                Data: 23 de fevereiro de 2024.""");
-        // TODO: Arrumar nome completo de todos
+                Data: 08 de abril de 2024.""");
 
         sc.close();
     }
@@ -89,5 +122,4 @@ public class Main {
         }
         System.out.println();
     }
-
 }
