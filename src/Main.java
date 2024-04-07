@@ -1,4 +1,5 @@
 import entities.Filme;
+import serialization.csv.ApplicationCsvSerializer;
 import services.BuscadorFilmes;
 import services.FilmeManipulador;
 
@@ -19,6 +20,9 @@ public class Main {
         List<Filme> filmes = new ArrayList<>();
         FilmeManipulador filmeManipulador = FilmeManipulador.getManipulador(sc);
         BuscadorFilmes buscadorFilmes = BuscadorFilmes.getBuscador(sc, filmes);
+        ApplicationCsvSerializer serializer = new ApplicationCsvSerializer();
+        ApplicationCsvSerializer deserializer = new ApplicationCsvSerializer();
+        List<Filme> filmesDoArquivo = deserializer.deserialize();
 
         loopApp:
         while (true) {
@@ -64,10 +68,12 @@ public class Main {
                         buscadorFilmes.filtrarPorDuracao();
                         break;
                     case '8':
-                        // Implementar salvar em arquivo CSV
+                        serializer.serialize(filmes);
+                        System.out.println("Filmes salvos em arquivo CSV com sucesso!");
                         break;
                     case '9':
-                        // Implementar ler de arquivo CSV
+                        filmes = filmesDoArquivo;
+                        System.out.println("Filmes lidos do arquivo CSV com sucesso!");
                         break;
                     case '0':
                         break loopApp;
@@ -85,7 +91,7 @@ public class Main {
         System.out.println("""
                 Esta aplicação foi desenvolvida no programa Santander Coders aplicado pela Ada Tech no módulo de Programação Orientada a Objetos com os objetivos de fixação de conteúdo e avaliação.
                 
-                Professor: Vinicius Conceição
+                Professor: Jesse Haniel
                 Desenvolvedores:
                     Bruno Samuel da Silva;
                     Fabiola Santana dos Santos;
