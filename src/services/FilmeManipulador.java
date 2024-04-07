@@ -1,10 +1,5 @@
-package services;
-
 import entities.Filme;
-
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,7 +17,6 @@ public class FilmeManipulador {
     private final Scanner sc;
     private final DiretorManipulador diretorManipulador;
     private final AtorManipulador atorManipulador;
-
 
     private FilmeManipulador(Scanner sc) {
         this.sc = sc;
@@ -64,22 +58,6 @@ public class FilmeManipulador {
             this.adicionarGeneros(filme);
             filmes.add(filme);
             System.out.println("Filme adicionado com sucesso!");
-
-        }
-    }
-
-    private void adicionarGeneros(Filme filme) {
-        System.out.println(">>>> Inserção de Gêneros <<<<");
-        System.out.println("Tecle enter sem digitar nada para sair.\n");
-        while (true) {
-            System.out.print("Nome do gênero: ");
-            String genero = sc.nextLine();
-            if (genero.isBlank()) {
-                System.out.println();
-                break;
-            }
-
-            filme.adicionarGenero(genero);
         }
     }
 
@@ -113,8 +91,10 @@ public class FilmeManipulador {
                       2 - Editar data de lançamento;
                       3 - Editar orçamento;
                       4 - Editar descrição;
-                      5 - Editar diretores;
-                      6 - Editar atores;
+                      5 - Editar duração; //aqui
+                      6 - Editar diretores;
+                      7 - Editar atores;
+                      8 - Editar gêneros; //aqui
                       0 - Sair.
                 """;
         while (true) {
@@ -125,6 +105,8 @@ public class FilmeManipulador {
             System.out.println("  Descrição: " + filme.getDescricao());
             System.out.println("  Diretores: " + filme.getListaDiretores());
             System.out.println("  Atores: " + filme.getListaAtores());
+            System.out.println("  Duração: " + filme.getDuracao());
+            System.out.println("  Gêneros: " + filme.getGeneros());
             System.out.println(apresentacao);
 
             System.out.print("> ");
@@ -145,11 +127,16 @@ public class FilmeManipulador {
                     editarDescricao(filme);
                     break;
                 case '5':
-                    editarDiretores(filme);
+                    editarDuracao(filme);
                     break;
                 case '6':
+                    editarDiretores(filme);
+                    break;
+                case '7':
                     editarAtores(filme);
-                    atorManipulador.editarAtores(filme);
+                    break;
+                case '8':
+                    editarGeneros(filme);
                     break;
                 case '0':
                     return;
@@ -189,7 +176,7 @@ public class FilmeManipulador {
 
     private void editarAtores(Filme filme) {
         String apresentacao = """
-                >>>> Menu - editão de filme (Ator) <<<<
+                >>>> Menu - edição de filme (Ator) <<<<
                       1 - Adicionar atores;
                       2 - Editar atores;
                       3 - Deletar atores;
@@ -239,6 +226,28 @@ public class FilmeManipulador {
         filme.setDescricao(novaDescricao);
     }
 
+    private void editarDuracao(Filme filme) {
+        System.out.print("Insira a nova duração do filme em minutos: ");
+        Duration novaDuracao = Duration.ofMinutes(sc.nextInt());
+        sc.nextLine();
+        filme.setDuracao(novaDuracao);
+    }
+
+    private void editarGeneros(Filme filme) {
+        System.out.println(">>>> Edição de Gêneros <<<<");
+        System.out.println("Tecle enter sem digitar nada para sair.\n");
+        while (true) {
+            System.out.print("Nome do gênero: ");
+            String genero = sc.nextLine();
+            if (genero.isBlank()) {
+                System.out.println();
+                break;
+            }
+
+            filme.adicionarGenero(genero);
+        }
+    }
+
     public void deletarFilme(List<Filme> filmes) {
 
         while (true) {
@@ -274,6 +283,21 @@ public class FilmeManipulador {
         sc.nextLine();
 
         return opcao;
+    }
+
+    private void adicionarGeneros(Filme filme) {
+        System.out.println(">>>> Inserção de Gêneros <<<<");
+        System.out.println("Tecle enter sem digitar nada para sair.\n");
+        while (true) {
+            System.out.print("Nome do gênero: ");
+            String genero = sc.nextLine();
+            if (genero.isBlank()) {
+                System.out.println();
+                break;
+            }
+
+            filme.adicionarGenero(genero);
+        }
     }
 }
 
