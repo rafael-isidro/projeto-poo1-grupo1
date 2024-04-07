@@ -2,11 +2,15 @@ package entities;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Filme {
+
+    private static final DateTimeFormatter LOCAL_DATE_FORMATER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     private String nome;
     private LocalDate dataLancamento;
     private Double orcamento;
@@ -47,6 +51,14 @@ public class Filme {
 
     public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
+    }
+
+    public String getDataLancamentoString() {
+        return dataLancamento.format(LOCAL_DATE_FORMATER);
+    }
+
+    public void setDataLancamento(String dataLancamento) {
+        this.dataLancamento = LocalDate.parse(dataLancamento, LOCAL_DATE_FORMATER);
     }
 
     public double getOrcamento() {

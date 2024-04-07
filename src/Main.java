@@ -1,13 +1,19 @@
 import entities.Filme;
 import services.FilmeManipulador;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
+    public static final DateTimeFormatter LOCAL_DATE_FORMATER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     public static void main(String... args) {
+        Locale.setDefault(Locale.ENGLISH);
+
         Scanner sc = new Scanner(System.in);
         List<Filme> filmes = new ArrayList<>();
         FilmeManipulador filmeManipulador = FilmeManipulador.getManipulador(sc);

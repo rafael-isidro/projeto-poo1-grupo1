@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class FilmeManipulador {
 
-    private static final DateTimeFormatter LOCAL_DATE_FORMATER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static FilmeManipulador manipulador;
 
     public static FilmeManipulador getManipulador(Scanner sc) {
@@ -54,7 +53,7 @@ public class FilmeManipulador {
 
             Filme filme = new Filme();
             filme.setNome(nome);
-            filme.setDataLancamento(LocalDate.parse(dataLancamento, LOCAL_DATE_FORMATER));
+            filme.setDataLancamento(dataLancamento);
             filme.setDescricao(descricao);
             filme.setOrcamento(orcamento);
             filme.setDuracao(duracao);
@@ -176,11 +175,11 @@ public class FilmeManipulador {
             if (opcao == '0')
                 break;
 
-            if (opcao == '1'){
+            if (opcao == '1') {
                 diretorManipulador.adicionarDiretores(filme);
-            } else if (opcao == '2'){
+            } else if (opcao == '2') {
                 diretorManipulador.editarDiretores(filme);
-            } else if (opcao == '3'){
+            } else if (opcao == '3') {
                 diretorManipulador.deletarDiretor(filme);
             } else {
                 System.out.println("Opção inválida.\n");
@@ -203,11 +202,11 @@ public class FilmeManipulador {
             if (opcao == '0')
                 break;
 
-            if (opcao == '1'){
+            if (opcao == '1') {
                 atorManipulador.adicionarAtores(filme);
-            } else if (opcao == '2'){
+            } else if (opcao == '2') {
                 atorManipulador.editarAtores(filme);
-            } else if (opcao == '3'){
+            } else if (opcao == '3') {
                 atorManipulador.deletarAtores(filme);
             } else {
                 System.out.println("Opção inválida.\n");
@@ -224,7 +223,7 @@ public class FilmeManipulador {
     private void editarDataLancamento(Filme filme) {
         System.out.print("Insira a nova data de lançamento do filme (dd/MM/yyyy): ");
         String novaDataLancamento = sc.nextLine();
-        filme.setDataLancamento(LocalDate.parse(novaDataLancamento, LOCAL_DATE_FORMATER));
+        filme.setDataLancamento(novaDataLancamento);
     }
 
     private void editarOrcamento(Filme filme) {
