@@ -1,4 +1,5 @@
 import entities.Filme;
+import services.BuscadorFilmes;
 import services.FilmeManipulador;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         List<Filme> filmes = new ArrayList<>();
         FilmeManipulador filmeManipulador = FilmeManipulador.getManipulador(sc);
+        BuscadorFilmes buscadorFilmes = BuscadorFilmes.getBuscador(sc, filmes);
 
         loopApp:
         while (true) {
@@ -50,10 +52,10 @@ public class Main {
                     case '6':
                         apresentarOpcoesPesquisa();
                         char opcaoPesquisa = Character.toUpperCase(sc.nextLine().charAt(0));
-                        executarPesquisa(opcaoPesquisa);
+                        executarPesquisa(buscadorFilmes, opcaoPesquisa);
                         break;
                     case '7':
-                        // Implementar filtrar por duração
+                        buscadorFilmes.filtrarPorDuracao();
                         break;
                     case '8':
                         // Implementar salvar em arquivo CSV
@@ -119,22 +121,22 @@ public class Main {
         System.out.print("> ");
     }
 
-    private static void executarPesquisa(char opcaoPesquisa) {
+    private static void executarPesquisa(BuscadorFilmes buscador, char opcaoPesquisa) {
         switch (opcaoPesquisa) {
             case 'A':
-                // Implementar pesquisa por título
+                buscador.buscarPorParteDoTitulo();
                 break;
             case 'B':
-                // Implementar pesquisa por gênero
+                buscador.buscarPorGenero();
                 break;
             case 'C':
-                // Implementar pesquisa por ano de lançamento
+                buscador.buscarPorAnoLancamento();
                 break;
             case 'D':
-                // Implementar pesquisa por atores
+                buscador.buscarPorAtor();
                 break;
             case 'E':
-                // Implementar pesquisa por diretor
+                buscador.buscarPorDiretor();
                 break;
             default:
                 System.out.println("Opção de pesquisa inválida.\n");
