@@ -23,6 +23,10 @@ abstract class Pessoa {
         this.nome = nome;
     }
 
+    public boolean nomeContem(String nomePesquisa) {
+        return nome.toLowerCase().contains(nomePesquisa.toLowerCase());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

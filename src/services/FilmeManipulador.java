@@ -2,10 +2,15 @@ package services;
 
 import entities.Filme;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
 public class FilmeManipulador {
+
+    private static final DateTimeFormatter LOCAL_DATE_FORMATER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static FilmeManipulador manipulador;
 
     public static FilmeManipulador getManipulador(Scanner sc) {
@@ -36,25 +41,46 @@ public class FilmeManipulador {
                 break;
             }
 
-            System.out.print("Lançamento do filme: ");
+            System.out.print("Lançamento do filme (dd/MM/yyyy): ");
             String dataLancamento = sc.nextLine();
             System.out.print("Orçamento do filme: ");
             double orcamento = sc.nextDouble();
             sc.nextLine();
+            System.out.println("Duração do filme em minutos: ");
+            Duration duracao = Duration.ofMinutes(sc.nextInt());
+            sc.nextLine();
             System.out.print("Descrição do filme: ");
             String descricao = sc.nextLine();
+
             Filme filme = new Filme();
             filme.setNome(nome);
-            filme.setDataLancamento(dataLancamento);
+            filme.setDataLancamento(LocalDate.parse(dataLancamento, LOCAL_DATE_FORMATER));
             filme.setDescricao(descricao);
             filme.setOrcamento(orcamento);
+            filme.setDuracao(duracao);
             System.out.println();
             diretorManipulador.adicionarDiretores(filme);
             System.out.println();
             atorManipulador.adicionarAtores(filme);
+            this.adicionarGeneros(filme);
             filmes.add(filme);
             System.out.println("Filme adicionado com sucesso!");
 
+        }
+    }
+
+    private void adicionarGeneros(Filme filme) {
+        System.out.println(">>>> Inserção de Gêneros <<<<");
+        System.out.println("Tecle enter sem digitar nada para sair.\n");
+        while (true) {
+            System.out.print("Nome do gênero: ");
+            String genero = sc.nextLine();
+            if (genero.isBlank()) {
+                System.out.println();
+                break;
+            }
+
+            filme.adicionarGenero(genero);
         }
     }
 
@@ -196,9 +222,9 @@ public class FilmeManipulador {
     }
 
     private void editarDataLancamento(Filme filme) {
-        System.out.print("Insira a nova data de lançamento: ");
+        System.out.print("Insira a nova data de lançamento do filme (dd/MM/yyyy): ");
         String novaDataLancamento = sc.nextLine();
-        filme.setDataLancamento(novaDataLancamento);
+        filme.setDataLancamento(LocalDate.parse(novaDataLancamento, LOCAL_DATE_FORMATER));
     }
 
     private void editarOrcamento(Filme filme) {
