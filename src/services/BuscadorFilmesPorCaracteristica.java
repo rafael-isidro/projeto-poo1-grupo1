@@ -21,7 +21,7 @@ public class BuscadorFilmesPorCaracteristica {
 
     public List<Filme> buscarPorParteDoTitulo(String parteTitulo, List<Filme> filmes) {
         return filmes.stream()
-                .filter(filme -> filme.getNome().toLowerCase().contains(parteTitulo.toLowerCase()))
+                .filter(filme -> filme.nomeContem(parteTitulo))
                 .collect(Collectors.toList());
     }
 
@@ -41,14 +41,14 @@ public class BuscadorFilmesPorCaracteristica {
     public List<Filme> buscarPorAtor(String nomeAtor, List<Filme> filmes) {
         return filmes.stream()
                 .filter(filme -> filme.getListaAtores().stream()
-                        .anyMatch(elem -> elem.getNome().toLowerCase().contains(nomeAtor.toLowerCase())))
+                        .anyMatch(elem -> elem.nomeContem(nomeAtor)))
                 .collect(Collectors.toList());
     }
 
     public List<Filme> buscarPorDiretor(String nomeDiretor, List<Filme> filmes) {
         return filmes.stream()
                 .filter(filme -> filme.getListaDiretores().stream()
-                        .anyMatch(elem -> elem.getNome().toLowerCase().contains(nomeDiretor.toLowerCase())))
+                        .anyMatch(elem -> elem.nomeContem(nomeDiretor)))
                 .collect(Collectors.toList());
     }
 
