@@ -94,18 +94,19 @@ public class BuscadorFilmes {
             System.out.println("Lista de filmes vazia. Adicione filmes para realizar busca.");
             return;
         }
-        System.out.println("Digite a duração máxima que deseja buscar (no formato HH:MM:SS): ");
-        String duracaoStr = sc.nextLine();
 
-        Duration duracao;
+        int duracaoMaximaMinutos;
+        System.out.println("Digite a duração máxima que deseja buscar em minutos: ");
         try {
-            duracao = Duration.parse("PT" + duracaoStr);
-        } catch (Exception e) {
+            duracaoMaximaMinutos = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
             System.out.println("Formato de duração inválido.");
             return;
         }
 
-        List<Filme> filmesEncontrados = buscadorPorCaracteristica.filtrarPorDuracao(duracao, this.filmes);
+        Duration duracaoMaxima = Duration.ofMinutes(duracaoMaximaMinutos);
+
+        List<Filme> filmesEncontrados = buscadorPorCaracteristica.filtrarPorDuracao(duracaoMaxima, this.filmes);
         checarEMostrarResultado(filmesEncontrados, "Nenhum filme encontrado com duração menor do que a fornecida.");
     }
 
