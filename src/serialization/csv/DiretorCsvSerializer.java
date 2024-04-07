@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class DiretorCsvSerializable implements CsvSerializable<Diretor> {
+public class DiretorCsvSerializer implements CsvSerializer<Diretor> {
 
     private final String delimiter;
     private final String listDelimiter;
 
-    public DiretorCsvSerializable(String delimiter, String listDelimiter) {
+    public DiretorCsvSerializer(String delimiter, String listDelimiter) {
         this.delimiter = delimiter;
         this.listDelimiter = listDelimiter;
     }

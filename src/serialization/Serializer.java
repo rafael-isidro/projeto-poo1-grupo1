@@ -1,6 +1,6 @@
 package serialization;
 
-public interface CustomSerializable <E, S> {
+public interface Serializer<E, S> {
 
     S serialize(E entity);
 

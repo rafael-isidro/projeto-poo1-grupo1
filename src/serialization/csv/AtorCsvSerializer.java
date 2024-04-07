@@ -2,11 +2,11 @@ package serialization.csv;
 
 import entities.Ator;
 
-public class AtorCsvSerializable implements CsvSerializable<Ator> {
+public class AtorCsvSerializer implements CsvSerializer<Ator> {
 
     private final String delimiter;
 
-    public AtorCsvSerializable(String delimiter) {
+    public AtorCsvSerializer(String delimiter) {
         this.delimiter = delimiter;
     }
 

@@ -5,24 +5,21 @@ import entities.Filme;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class FilmeCsvSerializable implements CsvSerializable<Filme> {
-
-    private static final DateTimeFormatter LOCAL_DATE_FORMATER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+public class FilmeCsvSerializer implements CsvSerializer<Filme> {
 
     private final String delimiter;
     private final String listDelimiter;
-    private final AtorCsvSerializable atorCsvSerializable;
-    private final DiretorCsvSerializable diretorCsvSerializable;
+    private final AtorCsvSerializer atorCsvSerializer;
+    private final DiretorCsvSerializer diretorCsvSerializer;
 
-    public FilmeCsvSerializable(String delimiter, String delimiter2, String listDelimiter, String listDelimiter2) {
+    public FilmeCsvSerializer(String delimiter, String delimiter2, String listDelimiter, String listDelimiter2) {
         this.delimiter = delimiter;
         this.listDelimiter = listDelimiter;
-        this.atorCsvSerializable = new AtorCsvSerializable(delimiter2);
-        this.diretorCsvSerializable = new DiretorCsvSerializable(delimiter2, listDelimiter2);
+        this.atorCsvSerializer = new AtorCsvSerializer(delimiter2);
+        this.diretorCsvSerializer = new DiretorCsvSerializer(delimiter2, listDelimiter2);
     }
 
     @Override
@@ -38,12 +35,12 @@ public class FilmeCsvSerializable implements CsvSerializable<Filme> {
 
         sb.append(
                 entity.getListaDiretores().stream()
-                        .map(diretorCsvSerializable::serialize)
+                        .map(diretorCsvSerializer::serialize)
                         .collect(Collectors.joining(listDelimiter))
         ).append(delimiter);
         sb.append(
                 entity.getListaAtores().stream()
-                        .map(atorCsvSerializable::serialize)
+                        .map(atorCsvSerializer::serialize)
                         .collect(Collectors.joining(listDelimiter))
         ).append(delimiter);
         sb.append(String.join(listDelimiter, entity.getListaGeneros()));
@@ -64,10 +61,10 @@ public class FilmeCsvSerializable implements CsvSerializable<Filme> {
         filme.setDuracao(Duration.ofMinutes(Integer.parseInt(fields[4])));
 
         Arrays.stream(fields[5].split(listDelimiter))
-                .map(diretorCsvSerializable::deserialize)
+                .map(diretorCsvSerializer::deserialize)
                 .forEach(filme::adicionarDiretor);
         Arrays.stream(fields[6].split(listDelimiter))
-                .map(atorCsvSerializable::deserialize)
+                .map(atorCsvSerializer::deserialize)
                 .forEach(filme::adicionarAtor);
         Arrays.stream(fields[7].split(listDelimiter))
                 .forEach(filme::adicionarGenero);
