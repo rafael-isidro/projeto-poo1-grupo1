@@ -79,11 +79,11 @@ public class Main {
         System.out.println("""
                 Esta aplicação foi desenvolvida no programa Santander Coders aplicado pela Ada Tech no módulo de Programação Orientada a Objetos com os objetivos de fixação de conteúdo e avaliação.
                 
-                Professor: Vinicius Conceição
+                Professor: Jesse Haniel
                 Desenvolvedores:
                     Bruno Samuel da Silva;
                     Fabiola Santana dos Santos;
-                    Rafael Maia
+                    Rafael Luis Maia;
                     Rafael Santos Isidro; e
                     Wagner Costa Thomazini.
                 Turma: Santander Coders 2023 | 2º Semestre - Java (1)|#1111
