@@ -1,29 +1,36 @@
 package entities;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Filme {
     private String nome;
-    private String dataLancamento;
+    private LocalDate dataLancamento;
     private Double orcamento;
     private String descricao;
-    private List<Diretor> listaDiretores;
-    private List<Ator> listaAtores;
+    private Duration duracao;
+    private final List<Diretor> listaDiretores;
+    private final List<Ator> listaAtores;
+    private final List<String> listaGeneros;
 
-    public Filme(String nome, String dataLancamento, Double orcamento, String descricao, ArrayList<Diretor> diretores, ArrayList<Ator> atores) {
+    public Filme(String nome, LocalDate dataLancamento, Double orcamento, String descricao, Duration duracao, List<Diretor> diretores, List<Ator> atores, List<String> generos) {
         this.nome = nome;
         this.dataLancamento = dataLancamento;
         this.orcamento = orcamento;
         this.descricao = descricao;
+        this.duracao = duracao;
         this.listaDiretores = diretores;
         this.listaAtores = atores;
+        this.listaGeneros = generos;
     }
 
     public Filme() {
         this.listaAtores = new ArrayList<>();
         this.listaDiretores = new ArrayList<>();
+        this.listaGeneros = new ArrayList<>();
     }
 
     public String getNome() {
@@ -34,11 +41,11 @@ public class Filme {
         this.nome = nome;
     }
 
-    public String getDataLancamento() {
+    public LocalDate getDataLancamento() {
         return dataLancamento;
     }
 
-    public void setDataLancamento(String dataLancamento) {
+    public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
 
@@ -58,30 +65,41 @@ public class Filme {
         this.descricao = descricao;
     }
 
-    public List<Diretor> getListaDiretores() {
-        return listaDiretores;
+    public Duration getDuracao() {
+        return duracao;
     }
 
-    public void setListaDiretores(List<Diretor> listaDiretores) {
-        this.listaDiretores = listaDiretores;
+    public void setDuracao(Duration duracao) {
+        this.duracao = duracao;
+    }
+
+    public List<Diretor> getListaDiretores() {
+        return listaDiretores;
     }
 
     public List<Ator> getListaAtores() {
         return listaAtores;
     }
 
-    public void setListaAtores(ArrayList<Ator> listaAtores) {
-        this.listaAtores = listaAtores;
+    public List<String> getListaGeneros() {
+        return listaGeneros;
     }
-
 
     public void adicionarAtor(Ator ator) {
         listaAtores.add(ator);
     }
 
+    public void adicionarGenero(String genero) {
+        listaGeneros.add(genero);
+    }
+
 
     public void removerAtor(Ator ator) {
         listaAtores.remove(ator);
+    }
+
+    public void removerGenero(String genero) {
+        listaGeneros.remove(genero);
     }
 
     public boolean nomeContem(String nomePesquisa) {
@@ -102,12 +120,19 @@ public class Filme {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Filme filme = (Filme) o;
-        return Objects.equals(nome, filme.nome) && Objects.equals(dataLancamento, filme.dataLancamento) && Objects.equals(orcamento, filme.orcamento) && Objects.equals(descricao, filme.descricao) && Objects.equals(listaDiretores, filme.listaDiretores) && Objects.equals(listaAtores, filme.listaAtores);
+        return Objects.equals(nome, filme.nome)
+                && Objects.equals(dataLancamento, filme.dataLancamento)
+                && Objects.equals(orcamento, filme.orcamento)
+                && Objects.equals(descricao, filme.descricao)
+                && Objects.equals(duracao, filme.duracao)
+                && Objects.equals(listaDiretores, filme.listaDiretores)
+                && Objects.equals(listaGeneros, filme.listaGeneros)
+                && Objects.equals(listaAtores, filme.listaAtores);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, dataLancamento, orcamento, descricao, listaDiretores, listaAtores);
+        return Objects.hash(nome, dataLancamento, orcamento, descricao, duracao, listaDiretores, listaAtores, listaGeneros);
     }
 
     @Override
@@ -117,8 +142,10 @@ public class Filme {
                 ", dataLancamento='" + dataLancamento + '\'' +
                 ", orcamento=" + orcamento +
                 ", descricao='" + descricao + '\'' +
+                ", duracao='" + duracao + '\'' +
                 ", diretores=" + listaDiretores +
                 ", atores=" + listaAtores +
+                ", generos=" + listaGeneros +
                 '}';
     }
 
