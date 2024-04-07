@@ -45,7 +45,7 @@ public class FilmeManipulador {
             System.out.print("Orçamento do filme: ");
             double orcamento = sc.nextDouble();
             sc.nextLine();
-            System.out.println("Duração do filme em minutos: ");
+            System.out.print("Duração do filme em minutos: ");
             Duration duracao = Duration.ofMinutes(sc.nextInt());
             sc.nextLine();
             System.out.print("Descrição do filme: ");

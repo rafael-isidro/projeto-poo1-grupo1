@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Diretor extends Pessoa {
     private List<String> listaAreas;
 
-    public Diretor(String nome, ArrayList<String> listaAreas) {
+    public Diretor(String nome, List<String> listaAreas) {
         super(nome);
         this.listaAreas = listaAreas;
     }

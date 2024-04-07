@@ -3,9 +3,8 @@ package serialization.csv;
 import entities.Filme;
 
 import java.time.Duration;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FilmeCsvSerializer implements CsvSerializer<Filme> {
@@ -24,6 +23,8 @@ public class FilmeCsvSerializer implements CsvSerializer<Filme> {
 
     @Override
     public String serialize(Filme entity) {
+        Objects.requireNonNull(entity);
+
         StringBuilder sb = new StringBuilder();
 
         sb.append(entity.getNome()).append(delimiter);
@@ -31,7 +32,7 @@ public class FilmeCsvSerializer implements CsvSerializer<Filme> {
         sb.append(entity.getOrcamento()).append(delimiter);
 
         sb.append(entity.getDescricao()).append(delimiter);
-        sb.append(entity.getDuracao().get(ChronoUnit.MINUTES)).append(delimiter);
+        sb.append(entity.getDuracao().toMinutes()).append(delimiter);
 
         sb.append(
                 entity.getListaDiretores().stream()
@@ -53,22 +54,32 @@ public class FilmeCsvSerializer implements CsvSerializer<Filme> {
         String[] fields = serializedEntity.split(delimiter);
         Filme filme = new Filme();
 
-        filme.setNome(fields[0]);
-        filme.setDataLancamento(fields[1]);
-        filme.setOrcamento(Double.parseDouble(fields[2]));
+        try {
+            filme.setNome(fields[0]);
+            filme.setDataLancamento(fields[1]);
+            filme.setOrcamento(Double.parseDouble(fields[2]));
 
-        filme.setDescricao(fields[3]);
-        filme.setDuracao(Duration.ofMinutes(Integer.parseInt(fields[4])));
+            filme.setDescricao(fields[3]);
+            filme.setDuracao(Duration.ofMinutes(Integer.parseInt(fields[4])));
 
-        Arrays.stream(fields[5].split(listDelimiter))
-                .map(diretorCsvSerializer::deserialize)
-                .forEach(filme::adicionarDiretor);
-        Arrays.stream(fields[6].split(listDelimiter))
-                .map(atorCsvSerializer::deserialize)
-                .forEach(filme::adicionarAtor);
-        Arrays.stream(fields[7].split(listDelimiter))
-                .forEach(filme::adicionarGenero);
+            if (!fields[5].isBlank()) {
+                Arrays.stream(fields[5].split(listDelimiter))
+                        .map(diretorCsvSerializer::deserialize)
+                        .forEach(filme::adicionarDiretor);
+            }
+            if (!fields[5].isBlank()) {
+                Arrays.stream(fields[6].split(listDelimiter))
+                        .map(atorCsvSerializer::deserialize)
+                        .forEach(filme::adicionarAtor);
+            }
+            if (!fields[5].isBlank()) {
+                Arrays.stream(fields[7].split(listDelimiter))
+                        .forEach(filme::adicionarGenero);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Os últimos campos estão vazios. Nada a fazer
+        }
 
-        return null;
+        return filme;
     }
 }
