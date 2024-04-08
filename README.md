@@ -1,9 +1,9 @@
 # Projeto Final - Técnicas de Programação I
-## Catálogo IMDB
+## Catálogo IMDb
 
-Foi desenvolvido um sistema de catálogo de filmes, similar ao IMDB. Este projeto é a evolução de um projeto de um módulo anterior, com a inclusão dos conceitos estudados neste módulo: IO, Streams e programação funcional.
+Foi desenvolvido um sistema de catálogo de filmes, similar ao IMDb. Este projeto é uma evolução de um projeto de um módulo anterior, com a inclusão dos conceitos estudados neste módulo: IO, Streams e programação funcional.
 
-Neste sistema cada filme deve possui alguns atributos como o nome, data de lançamento, orçamento e descrição.
+Neste sistema cada filme deve possuir alguns atributos como o nome, data de lançamento, orçamento e descrição.
 
 Cada filme também possui um diretor e uma lista de atores que trabalharam nele.
 As funcionalidades do sistema incluem:
@@ -17,7 +17,7 @@ As funcionalidades do sistema incluem:
   - atores;
   - diretor;
 
-Esta aplicação foi desenvolvida no programa Santander Coders, parceria da Ada Tech com o Banco Santander.
+Esta aplicação foi desenvolvida no programa Santander Coders, uma parceria da Ada Tech com o Banco Santander.
 
                 Professor: Jessé Haniel
                 Desenvolvedores:
