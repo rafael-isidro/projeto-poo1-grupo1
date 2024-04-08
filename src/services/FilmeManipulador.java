@@ -128,7 +128,6 @@ public class FilmeManipulador {
 
             System.out.print("> ");
             char opcao = sc.nextLine().charAt(0);
-            sc.nextLine();
 
             switch (opcao) {
                 case '1':
