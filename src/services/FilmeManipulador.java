@@ -127,30 +127,29 @@ public class FilmeManipulador {
             System.out.println(apresentacao);
 
             System.out.print("> ");
-            char opcao = sc.nextLine().charAt(0);
-            sc.nextLine();
+            String opcao = sc.nextLine();
 
             switch (opcao) {
-                case '1':
+                case "1":
                     editarNome(filme);
                     break;
-                case '2':
+                case "2":
                     editarDataLancamento(filme);
                     break;
-                case '3':
+                case "3":
                     editarOrcamento(filme);
                     break;
-                case '4':
+                case "4":
                     editarDescricao(filme);
                     break;
-                case '5':
+                case "5":
                     editarDiretores(filme);
                     break;
-                case '6':
+                case "6":
                     editarAtores(filme);
                     atorManipulador.editarAtores(filme);
                     break;
-                case '0':
+                case "0":
                     return;
                 default:
                     System.out.println("Opção inválida.");

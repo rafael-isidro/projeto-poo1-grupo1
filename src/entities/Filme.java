@@ -127,6 +127,12 @@ public class Filme {
         listaDiretores.remove(diretor);
     }
 
+    public String gerarDescricaoResumida(){
+        return getNome() +  ", " + getDataLancamento().format(LOCAL_DATE_FORMATER);
+    }
+    public String gerarDescricaoCompleta(){
+        return getNome() + ", " + getDataLancamento().format(LOCAL_DATE_FORMATER) + " - " + getDescricao();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
