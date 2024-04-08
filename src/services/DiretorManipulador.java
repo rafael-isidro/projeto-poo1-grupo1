@@ -26,8 +26,8 @@ public class DiretorManipulador {
 
     public void adicionarDiretores(Filme filme) {
         System.out.println(">>>> Inserção de Diretores <<<<");
-        System.out.println("Tecle enter sem digitar nada para sair.\n");
         while (true) {
+            System.out.println("Tecle enter sem digitar nada para sair.\n");
             System.out.print("Nome do diretor: ");
             String nome = sc.nextLine();
             if (nome.isBlank()) {
@@ -37,7 +37,7 @@ public class DiretorManipulador {
             ArrayList<String> listaAreas = new ArrayList<>();
             adicionarAreaAtuacao(listaAreas);
 
-            System.out.println("Áreas adicionadas com sucesso.");
+            System.out.println("Diretores adicionados com sucesso.");
             filme.adicionarDiretor(new Diretor(nome, listaAreas));
         }
 
