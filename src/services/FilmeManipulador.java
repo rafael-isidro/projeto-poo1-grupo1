@@ -70,8 +70,8 @@ public class FilmeManipulador {
 
     private void adicionarGeneros(Filme filme) {
         System.out.println(">>>> Inserção de Gêneros <<<<");
-        System.out.println("Tecle enter sem digitar nada para sair.\n");
         while (true) {
+            System.out.println("Tecle enter sem digitar nada para sair.\n");
             System.out.print("Nome do gênero: ");
             String genero = sc.nextLine();
             if (genero.isBlank()) {
@@ -90,7 +90,7 @@ public class FilmeManipulador {
         }
 
         while (true) {
-            System.out.print("Digite o número do ator a editar: ");
+            System.out.print("Digite o número do filme a editar: ");
 
             int numero = listarELerOpcao(filmes);
             if (numero == 0) {
@@ -115,8 +115,7 @@ public class FilmeManipulador {
                       4 - Editar descrição;
                       5 - Editar diretores;
                       6 - Editar atores;
-                      0 - Sair.
-                """;
+                      0 - Sair.""";
         while (true) {
             System.out.println("Filme");
             System.out.println("  Nome: " + filme.getNome());
