@@ -13,7 +13,7 @@ public class Main {
 
     public static final DateTimeFormatter LOCAL_DATE_FORMATER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static void main(String... args) {
+    public static void main(String... args) throws InterruptedException{
         Locale.setDefault(Locale.ENGLISH);
 
         Scanner sc = new Scanner(System.in);
@@ -23,59 +23,52 @@ public class Main {
         ApplicationCsvSerializer serializer = new ApplicationCsvSerializer();
         ApplicationCsvSerializer deserializer = new ApplicationCsvSerializer();
         List<Filme> filmesDoArquivo = deserializer.deserialize();
-
+        System.out.println("Pressione 'C' para carregar os filmes salvos, ou qualquer tecla para continuar");
+        if (sc.nextLine().equalsIgnoreCase("c")){
+            filmes = filmesDoArquivo;
+            System.out.println("Filmes lidos do arquivo CSV com sucesso!");
+        }
         loopApp:
         while (true) {
+            Thread.sleep(1000);
             String apresentacao = """
                     >>>> Menu <<<<
                           1 - Listar filmes;
                           2 - Adicionar filmes;
                           3 - Editar filmes;
                           4 - Deletar filmes;
-                          5 - Listar filmes com detalhes;
-                          6 - Pesquisar;
-                          7 - Filtrar por duração;
-                          8 - Salvar filmes em arquivo CSV;
-                          9 - Ler filmes de arquivo CSV;
+                          5 - Pesquisar;
+                          6 - Filtrar por duração;
                           0 - Sair.""";
             System.out.print(apresentacao + "\n> ");
             try {
-                char opcao = Character.toUpperCase(sc.nextLine().charAt(0));
-                System.out.println();
+                String opcao = sc.nextLine();
 
                 switch (opcao) {
-                    case '1':
-                        listarFilmes(filmes, false);
+                    case "1":
+                        listarFilmes(filmes, sc);
                         break;
-                    case '2':
+                    case "2":
                         filmeManipulador.adicionarFilme(filmes);
                         break;
-                    case '3':
+                    case "3":
                         filmeManipulador.editarFilme(filmes);
                         break;
-                    case '4':
+                    case "4":
                         filmeManipulador.deletarFilme(filmes);
                         break;
-                    case '5':
-                        listarFilmes(filmes, true);
-                        break;
-                    case '6':
+                    case "5":
                         apresentarOpcoesPesquisa();
                         char opcaoPesquisa = Character.toUpperCase(sc.nextLine().charAt(0));
                         executarPesquisa(buscadorFilmes, opcaoPesquisa);
                         break;
-                    case '7':
+                    case "6":
                         buscadorFilmes.filtrarPorDuracao();
                         break;
-                    case '8':
+                    case "0":
                         serializer.serialize(filmes);
-                        System.out.println("Filmes salvos em arquivo CSV com sucesso!");
-                        break;
-                    case '9':
-                        filmes = filmesDoArquivo;
-                        System.out.println("Filmes lidos do arquivo CSV com sucesso!");
-                        break;
-                    case '0':
+                        System.out.println("Filmes salvos em arquivo CSV com sucesso!\n");
+                        Thread.sleep(500);
                         break loopApp;
                     default:
                         System.out.println("Opção inválida.\n");
@@ -104,23 +97,35 @@ public class Main {
         sc.close();
     }
 
-    private static void listarFilmes(List<? extends Filme> filmes, boolean mostrarDescricao) {
+    private static void listarFilmes(List<? extends Filme> filmes, Scanner sc) {
         if (filmes.isEmpty()) {
             System.out.println("Não há filmes cadastrados.\n");
             return;
         }
-
-        System.out.println("Filmes:");
-        if (mostrarDescricao) {
-            for (Filme f : filmes) {
-                System.out.printf("  %s (%s) - %s%n", f.getNome(), f.getDataLancamento(), f.getDescricao());
+        System.out.println("""
+                            Qual o modo de exibição?
+                            1 - Resumido
+                            2 - Detalhado""");
+        String opcao = sc.nextLine();
+        try{
+            switch (opcao){
+                case "1":
+                    for (Filme f : filmes) {
+                        System.out.println(f.gerarDescricaoResumida() + "\n");
+                    }
+                    break;
+                case "2":
+                    for (Filme f : filmes) {
+                        System.out.println(f.gerarDescricaoCompleta() + "\n");
+                    }
+                    break;
+                default:
+                    System.out.println("Opção inválida.\n");
             }
-        } else {
-            for (Filme f : filmes) {
-                System.out.printf("  %s (%s)%n", f.getNome(), f.getDataLancamento());
-            }
+        } catch (NullPointerException e){
+            System.err.println(e.getMessage());
         }
-        System.out.println();
+
     }
 
     private static void apresentarOpcoesPesquisa() {
