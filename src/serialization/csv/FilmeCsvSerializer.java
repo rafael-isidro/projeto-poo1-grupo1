@@ -67,12 +67,12 @@ public class FilmeCsvSerializer implements CsvSerializer<Filme> {
                         .map(diretorCsvSerializer::deserialize)
                         .forEach(filme::adicionarDiretor);
             }
-            if (!fields[5].isBlank()) {
+            if (!fields[6].isBlank()) {
                 Arrays.stream(fields[6].split(listDelimiter))
                         .map(atorCsvSerializer::deserialize)
                         .forEach(filme::adicionarAtor);
             }
-            if (!fields[5].isBlank()) {
+            if (!fields[7].isBlank()) {
                 Arrays.stream(fields[7].split(listDelimiter))
                         .forEach(filme::adicionarGenero);
             }
