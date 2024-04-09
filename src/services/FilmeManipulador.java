@@ -127,6 +127,7 @@ public class FilmeManipulador {
             System.out.println(apresentacao);
 
             System.out.print("> ");
+
             String opcao = sc.nextLine();
 
             switch (opcao) {
